@@ -32,9 +32,8 @@ class Shrek {
 
   update() {
     this.gravity = 1;
-    this.velocity = 0,5 ;
+    this.velocity = 2;
     this.velocity += this.gravity;
-    this.velocity += 2;
     this.y += this.velocity;
     //console.log(this.y);
     if (this.y + 65 > height) {
@@ -55,8 +54,9 @@ class Shrek {
 
 class Wc{
   constructor(){
-    this.top = random(height/2);
-    this.bot = random(height/2);
+    this.space = 175;
+    this.top = random(height / 6, 3 / 4 * height);
+    this.bot = height - (this.top + this.space);
     this.x = width;
     this.w = 120;
     this.speed = 3;
@@ -64,13 +64,28 @@ class Wc{
 
   draw(){
     push();
+    if(this.top + this.bot > 550){
+
+    }
     image(wc1, this.x, 0, this.w, this.top);
     image(wc, this.x, height-this.bot, this.w, this.bot);
+    
     pop();
   }
 
   update(){
     this.x -=this.speed;
+  }
+
+  function(shrek) {
+    if (shrek.y < this.top || shrek.y > height - this.bottom) {
+      if (shrek.x > this.x && shrek.x < this.x + this.w) {
+        this.highlight = true;
+        return true;
+      }
+    }
+    this.highlight = false;
+    return false;
   }
 }
 
@@ -100,9 +115,9 @@ function draw() {
   image(pozadi, 0, 0);
   shrek.move();
   shrek.update();
-  shrek.draw();
+  shrek.draw(); 
 
-  if (frameCount %120 == 0){
+  if (frameCount % 160 == 0){
     wcs.push(new Wc());
   }
 
