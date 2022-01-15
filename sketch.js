@@ -1,5 +1,8 @@
-let canvas, shrek, imgS, pozadi, wc;
+let canvas, shrek, imgS, pozadi, wc, score;
 let wcs = [];
+let value = 0;
+let scoreInterval;
+//let music;
 
 /*this.gravity = 1;
 this.velocity = 0;
@@ -15,6 +18,24 @@ function preload() {
   pozadi = loadImage("./img/pozadi.jpg");
   wc = loadImage("./img/wc.png");
   wc1 = loadImage("./img/wc1.png");
+  //music = loadSound("./sound/AllStar.mp3");
+}
+
+class Score{
+  constructor(){
+    this.x = 50
+    this.y = 50
+  }
+
+  draw(){
+    textSize(32);
+    text(`Score: ${value}`, 50, 50);
+    fill(250)
+  }
+
+  count(){
+    value = Math.floor((frameCount - 200)/160);
+  }
 }
 
 class Shrek {
@@ -46,6 +67,7 @@ class Shrek {
 
   move() {
     if (keyIsDown(32)) {
+      ost.play();
       this.y -= 15;
       //console.log("SPACE")
     }
@@ -76,17 +98,6 @@ class Wc{
   update(){
     this.x -=this.speed;
   }
-
-  function(shrek) {
-    if (shrek.y < this.top || shrek.y > height - this.bottom) {
-      if (shrek.x > this.x && shrek.x < this.x + this.w) {
-        this.highlight = true;
-        return true;
-      }
-    }
-    this.highlight = false;
-    return false;
-  }
 }
 
 /*function spawn(){
@@ -106,6 +117,9 @@ function centerCanvas() {
 
 function setup() {
   canvas = createCanvas(1100, 650);
+  
+  score = new Score(50, 50);
+  //music.play();
   canvas.parent("canvas");
   shrek = new Shrek(80, height / 2 + 25);
   wcs.push(new Wc());
@@ -128,4 +142,7 @@ function draw() {
       wcs.splice(i, 1);
     }
   }
+
+  score.draw();
+  setTimeout(score.count, 5000)
 }
