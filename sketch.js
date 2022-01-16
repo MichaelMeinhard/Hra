@@ -152,8 +152,8 @@ function draw() {
     setTimeout(score.count, 5000)
     /* Zde je naznačeno řešení kolizí - musíte zkontrolovat možnou kolizi 
     horního i spodního obdélníku s obdélníkem Shreka. */
-    if (collideRectRect(wcs[i].x + 20, 0, wcs[i].w, wcs[i].top - 35, shrek.x, shrek.y, 50, 50)
-      || collideRectRect(wcs[i].x + 20, height - wcs[i].bot + 10, wcs[i].w, wcs[i].bot, shrek.x, shrek.y, 50, 50)) {
+    if (collideRectRect(wcs[i].x + 20, 0, wcs[i].w - 40, wcs[i].top - 45, shrek.x, shrek.y, 50, 50)
+      || collideRectRect(wcs[i].x + 20, height - wcs[i].bot + 10, wcs[i].w -10 , wcs[i].bot, shrek.x, shrek.y, 50, 50)) {
       noLoop();
       textSize(85);
       fill(200, 30, 30);
